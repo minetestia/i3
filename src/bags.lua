@@ -153,15 +153,15 @@ local bag_recipes = {
 for size, item in pairs(bag_recipes) do
   local bagname = fmt("i3:bag_%s", size)
 
-  core.register_craftitem(bagname, {
+  minetest.register_craftitem(bagname, {
     description = fmt("%s Backpack", size:gsub("^%l", string.upper)),
     inventory_image = fmt("i3_bag_%s.png", size),
     groups = { bag = item.size },
     stack_max = 1,
   })
 
-  core.register_craft { output = bagname, recipe = item.rcp }
-  core.register_craft { type = "fuel", recipe = bagname, burntime = 3 }
+  minetest.register_craft { output = bagname, recipe = item.rcp }
+  minetest.register_craft { type = "fuel", recipe = bagname, burntime = 3 }
 end
 
 return init_bags

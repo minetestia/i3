@@ -6,7 +6,7 @@ local function init_hud(player)
   local data = i3.data[name]
   local wdesc_y = -90
 
-  if core.global_exists "hb" then
+  if minetest.global_exists "hb" then
     wdesc_y = wdesc_y - ceil(hb.hudbars_count / 2) * 5
   elseif not i3.settings.damage_enabled then
     wdesc_y = wdesc_y + 15
@@ -85,7 +85,7 @@ local function show_hud(player, data, notif, idx, dt)
   end
 end
 
-core.register_globalstep(function(dt)
+minetest.register_globalstep(function(dt)
   local players = get_connected_players()
   players[0] = #players
 
@@ -124,7 +124,7 @@ core.register_globalstep(function(dt)
 
     local meta_desc = meta:get_string "short_description"
     meta_desc = meta_desc:gsub("\27", "")
-    meta_desc = core.strip_colors(meta_desc)
+    meta_desc = minetest.strip_colors(meta_desc)
 
     local desc = meta_desc ~= "" and meta_desc
       or wielditem:get_short_description()

@@ -25,7 +25,7 @@ function i3.register_craft(def)
   if http and true_str(def.url) then
     http.fetch({ url = def.url }, function(result)
       if result.succeeded then
-        local t = core.parse_json(result.data)
+        local t = minetest.parse_json(result.data)
         if is_table(t) then return i3.register_craft(t) end
       end
     end)
@@ -140,7 +140,7 @@ function i3.add_search_filter(name, f)
 end
 
 function i3.get_recipes(item)
-  item = core.registered_aliases[item] or item
+  item = minetest.registered_aliases[item] or item
   local recipes = i3.recipes_cache[item]
   local usages = i3.usages_cache[item]
 
@@ -457,13 +457,14 @@ i3.new_minitab("all", {
 i3.new_minitab("nodes", {
   description = "Nodes",
 
-  sorter = function(item) return core.registered_nodes[item] end,
+  sorter = function(item) return minetest.registered_nodes[item] end,
 })
 
 i3.new_minitab("items", {
   description = "Items",
 
   sorter = function(item)
-    return core.registered_craftitems[item] or core.registered_tools[item]
+    return minetest.registered_craftitems[item]
+      or minetest.registered_tools[item]
   end,
 })

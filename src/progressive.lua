@@ -51,7 +51,7 @@ local function item_in_inv(item, inv_items)
     local groups = group_cache and group_cache.groups or extract_groups(item)
 
     for i = 1, inv_items_size do
-      local def = core.registered_items[inv_items[i]]
+      local def = minetest.registered_items[inv_items[i]]
 
       if def then
         if item_has_groups(def.groups, groups) then return true end
@@ -113,7 +113,7 @@ local function get_inv_items(player)
 
     if not stack:is_empty() then
       local name = stack:get_name()
-      if core.registered_items[name] then
+      if minetest.registered_items[name] then
         c = c + 1
         inv_items[c] = name
       end
@@ -145,7 +145,7 @@ local function poll_new_items(player, data, join)
       local img = reg_items[last_discovered].inventory_image
 
       if reg_nodes[last_discovered] then
-        local id = core.get_content_id(last_discovered)
+        local id = minetest.get_content_id(last_discovered)
         img = i3.cubes[id] or img
       end
 
@@ -158,12 +158,12 @@ local function poll_new_items(player, data, join)
     set_fs(player)
   end
 
-  core.after(POLL_FREQ, poll_new_items, player, data)
+  minetest.after(POLL_FREQ, poll_new_items, player, data)
 end
 
 i3.add_recipe_filter("Default progressive filter", progressive_filter)
 
-core.register_on_joinplayer(function(player)
+minetest.register_on_joinplayer(function(player)
   local name = player:get_player_name()
   local data = i3.data[name]
   if not data then return end

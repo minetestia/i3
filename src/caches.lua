@@ -28,7 +28,7 @@ IMPORT(
 )
 
 local function get_burntime(item)
-  return core.get_craft_result({ method = "fuel", items = { item } }).time
+  return minetest.get_craft_result({ method = "fuel", items = { item } }).time
 end
 
 local function cache_fuel(item)
@@ -193,7 +193,7 @@ local function cache_drops(name, drop)
 end
 
 local function cache_recipes(item)
-  local recipes = core.get_all_craft_recipes(item)
+  local recipes = minetest.get_all_craft_recipes(item)
 
   if replacements[item] then
     local _recipes = {}
@@ -214,15 +214,15 @@ local function cache_recipes(item)
   end
 end
 
---[[	As `core.get_craft_recipe` and `core.get_all_craft_recipes` do not
+--[[	As `minetest.get_craft_recipe` and `minetest.get_all_craft_recipes` do not
 	return the fuel, replacements and toolrepair recipes, we have to
-	override `core.register_craft` and do some reverse engineering.
+	override `minetest.register_craft` and do some reverse engineering.
 	See engine's issues #4901, #5745 and #8920.	]]
 
-local old_register_craft = core.register_craft
+local old_register_craft = minetest.register_craft
 local rcp_num = {}
 
-core.register_craft = function(def)
+minetest.register_craft = function(def)
   old_register_craft(def)
 
   if def.type == "toolrepair" then
@@ -255,9 +255,9 @@ core.register_craft = function(def)
   end
 end
 
-local old_clear_craft = core.clear_craft
+local old_clear_craft = minetest.clear_craft
 
-core.clear_craft = function(def)
+minetest.clear_craft = function(def)
   old_clear_craft(def)
 
   -- TODO: hide in crafting guide
@@ -332,7 +332,7 @@ local function init_recipes()
 
     http.fetch_async {
       url = i3.export_url,
-      post_data = core.write_json(post_data),
+      post_data = minetest.write_json(post_data),
     }
   end
 end
@@ -340,7 +340,7 @@ end
 local function init_cubes()
   for name, def in pairs(reg_nodes) do
     if def then
-      local id = core.get_content_id(name)
+      local id = minetest.get_content_id(name)
       local tiles = def.tiles or def.tile_images
 
       if is_cube(def.drawtype) then

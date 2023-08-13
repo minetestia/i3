@@ -1,8 +1,8 @@
 local vec = vector.new
 local ItemStack = ItemStack
 local loadstring = loadstring
-local reg_items = core.registered_items
-local translate = core.get_translated_string
+local reg_items = minetest.registered_items
+local translate = minetest.get_translated_string
 local sort, concat, insert = table.sort, table.concat, table.insert
 local min, floor, ceil = math.min, math.floor, math.ceil
 local fmt, find, match, gmatch, sub, split, lower, upper =
@@ -15,25 +15,25 @@ local fmt, find, match, gmatch, sub, split, lower, upper =
   string.lower,
   string.upper
 
-if not core.registered_privileges.creative then
-  core.register_privilege("creative", {
+if not minetest.registered_privileges.creative then
+  minetest.register_privilege("creative", {
     description = "Allow player to use creative inventory",
     give_to_singleplayer = false,
     give_to_admin = false,
   })
 end
 
-local old_is_creative_enabled = core.is_creative_enabled
+local old_is_creative_enabled = minetest.is_creative_enabled
 
-function core.is_creative_enabled(name)
+function minetest.is_creative_enabled(name)
   if name == "" then return old_is_creative_enabled(name) end
 
-  return core.check_player_privs(name, { creative = true })
+  return minetest.check_player_privs(name, { creative = true })
     or old_is_creative_enabled(name)
 end
 
-local S = core.get_translator "i3"
-local ES = function(...) return core.formspec_escape(S(...)) end
+local S = minetest.get_translator "i3"
+local ES = function(...) return minetest.formspec_escape(S(...)) end
 
 local function is_num(x) return type(x) == "number" end
 
@@ -54,13 +54,13 @@ end
 
 local function msg(name, str)
   local prefix = "[i3]"
-  return core.chat_send_player(
+  return minetest.chat_send_player(
     name,
-    fmt("%s %s", core.colorize("#ff0", prefix), str)
+    fmt("%s %s", minetest.colorize("#ff0", prefix), str)
   )
 end
 
-local function err(str) return core.log("error", str) end
+local function err(str) return minetest.log("error", str) end
 
 local function round(num, decimal)
   local mul = 10 ^ decimal
@@ -293,7 +293,7 @@ local function get_cube(tiles)
   local right = tiles[5] or left or "i3_blank.png"
   if is_table(right) then right = right.name or right.image end
 
-  return core.inventorycube(top, left, right)
+  return minetest.inventorycube(top, left, right)
 end
 
 local function apply_recipe_filters(recipes, player)
@@ -348,11 +348,11 @@ local function spawn_item(player, stack)
   ppos.y = ppos.y + player:get_properties().eye_height
   local look_at = ppos + dir
 
-  core.add_item(look_at, stack)
+  minetest.add_item(look_at, stack)
 end
 
 local function get_recipes(player, item)
-  item = core.registered_aliases[item] or item
+  item = minetest.registered_aliases[item] or item
   local recipes = i3.recipes_cache[item]
   local usages = i3.usages_cache[item]
 
@@ -448,7 +448,7 @@ local function craft_stack(player, data, craft_rcp)
 end
 
 local function play_sound(name, sound, volume)
-  core.sound_play(sound, { to_player = name, gain = volume }, true)
+  minetest.sound_play(sound, { to_player = name, gain = volume }, true)
 end
 
 local function safe_teleport(player, pos)
@@ -634,7 +634,7 @@ local function init_hud_notif(player)
 end
 
 local function get_detached_inv(name, player_name)
-  return core.get_inventory {
+  return minetest.get_inventory {
     type = "detached",
     name = fmt("i3_%s_%s", name, player_name),
   }
@@ -649,7 +649,7 @@ local function update_inv_size(player, data)
 
   player:hud_set_hotbar_itemcount(data.hotbar_len)
 
-  core.after(
+  minetest.after(
     0,
     function()
       player:hud_set_hotbar_image(
@@ -725,17 +725,17 @@ local _ = {
   add_hud_waypoint = add_hud_waypoint,
 
   -- Core functions
-  clr = core.colorize,
-  slz = core.serialize,
-  dslz = core.deserialize,
-  ESC = core.formspec_escape,
-  draw_cube = core.inventorycube,
-  get_group = core.get_item_group,
-  pos_to_str = core.pos_to_string,
-  str_to_pos = core.string_to_pos,
-  check_privs = core.check_player_privs,
-  get_player_by_name = core.get_player_by_name,
-  get_connected_players = core.get_connected_players,
+  clr = minetest.colorize,
+  slz = minetest.serialize,
+  dslz = minetest.deserialize,
+  ESC = minetest.formspec_escape,
+  draw_cube = minetest.inventorycube,
+  get_group = minetest.get_item_group,
+  pos_to_str = minetest.pos_to_string,
+  str_to_pos = minetest.string_to_pos,
+  check_privs = minetest.check_player_privs,
+  get_player_by_name = minetest.get_player_by_name,
+  get_connected_players = minetest.get_connected_players,
 
   -- Inventory
   get_stack = get_stack,
@@ -743,20 +743,20 @@ local _ = {
   update_inv_size = update_inv_size,
   get_detached_inv = get_detached_inv,
   get_bag_description = get_bag_description,
-  create_inventory = core.create_detached_inventory,
+  create_inventory = minetest.create_detached_inventory,
 
   -- Registered items
-  reg_items = core.registered_items,
-  reg_nodes = core.registered_nodes,
-  reg_tools = core.registered_tools,
-  reg_aliases = core.registered_aliases,
-  reg_entities = core.registered_entities,
-  reg_craftitems = core.registered_craftitems,
+  reg_items = minetest.registered_items,
+  reg_nodes = minetest.registered_nodes,
+  reg_tools = minetest.registered_tools,
+  reg_aliases = minetest.registered_aliases,
+  reg_entities = minetest.registered_entities,
+  reg_craftitems = minetest.registered_craftitems,
 
   -- i18n
   S = S,
   ES = ES,
-  translate = core.get_translated_string,
+  translate = minetest.get_translated_string,
 
   -- String
   sub = string.sub,

@@ -271,7 +271,7 @@ local function select_item(player, data, fields)
     item = reg_aliases[item] or item
     if not reg_items[item] then return end
 
-    if core.is_creative_enabled(data.player_name) then
+    if minetest.is_creative_enabled(data.player_name) then
       local stack = ItemStack(item)
       local stackmax = stack:get_stack_max()
       stack = fmt("%s %s", item, stackmax)
@@ -403,12 +403,12 @@ local function rcp_fields(player, data, fields)
   end
 end
 
-core.register_on_player_receive_fields(function(player, formname, fields)
+minetest.register_on_player_receive_fields(function(player, formname, fields)
   local name = player:get_player_name()
 
   if formname == "i3_outdated" then
     return false,
-      core.kick_player(
+      minetest.kick_player(
         name,
         S "Your Minetest client needs updating (www.minetest.net)"
       )
