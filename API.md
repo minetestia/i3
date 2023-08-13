@@ -1,6 +1,7 @@
 # API :screwdriver:
 
 ### Table of Contents
+
 1. [**Tabs**](https://github.com/minetest-mods/i3/blob/main/API.md#tabs)
 2. [**Recipes**](https://github.com/minetest-mods/i3/blob/main/API.md#recipes)
 3. [**Minitabs**](https://github.com/minetest-mods/i3/blob/main/API.md#minitabs)
@@ -277,6 +278,7 @@ Example usages:
   `wood` in their names.
 
 Notes:
+
 - If `optional_name` is omitted, the search filter will apply to all items, without pre-filtering.
 - The `+groups` filter is currently implemented by default.
 
