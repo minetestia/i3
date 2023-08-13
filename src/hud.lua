@@ -1,5 +1,7 @@
-IMPORT("max", "ceil", "remove", "str_to_pos")
-IMPORT("get_connected_players", "add_hud_waypoint")
+local max, ceil, remove, str_to_pos =
+  i3.get("max", "ceil", "remove", "str_to_pos")
+local get_connected_players, add_hud_waypoint =
+  i3.get("get_connected_players", "add_hud_waypoint")
 
 local function init_hud(player)
   local name = player:get_player_name()

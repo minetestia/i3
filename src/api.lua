@@ -1,11 +1,26 @@
 local http = ...
 local make_fs, get_inventory_fs = i3.files.gui()
 
-IMPORT("sorter", "sort_inventory", "play_sound")
-IMPORT("sort", "concat", "copy", "insert", "remove")
-IMPORT("get_player_by_name", "add_hud_waypoint", "init_hud_notif")
-IMPORT("gmatch", "split", "S", "err", "fmt", "reg_items", "pos_to_str")
-IMPORT("true_str", "true_table", "is_str", "is_func", "is_table", "clean_name")
+local sorter, sort_inventory, play_sound =
+  i3.get("sorter", "sort_inventory", "play_sound")
+
+local sort, concat, copy, insert, remove =
+  i3.get("sort", "concat", "copy", "insert", "remove")
+
+local get_player_by_name, add_hud_waypoint, init_hud_notif =
+  i3.get("get_player_by_name", "add_hud_waypoint", "init_hud_notif")
+
+local gmatch, split, S, err, fmt, reg_items, pos_to_str =
+  i3.get("gmatch", "split", "S", "err", "fmt", "reg_items", "pos_to_str")
+
+local true_str, true_table, is_str, is_func, is_table, clean_name = i3.get(
+  "true_str",
+  "true_table",
+  "is_str",
+  "is_func",
+  "is_table",
+  "clean_name"
+)
 
 function i3.register_craft_type(name, def)
   if not true_str(name) then

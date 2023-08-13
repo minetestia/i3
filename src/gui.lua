@@ -7,23 +7,31 @@ local PNG, styles, fs_elements, colors = i3.files.styles()
 local sprintf = string.format
 local VoxelArea, VoxelManip = VoxelArea, VoxelManip
 
-IMPORT("vec", "vec_round")
-IMPORT("find", "match", "sub", "upper")
-IMPORT("clr", "ESC", "msg", "check_privs")
-IMPORT("min", "max", "floor", "ceil", "round")
-IMPORT("reg_items", "reg_nodes", "reg_tools", "reg_entities")
-IMPORT("get_bag_description", "get_detached_inv", "get_recipes")
-IMPORT("compression_active", "compressible", "recipe_filter_set")
-IMPORT("S", "ES", "translate", "ItemStack", "toupper", "utf8_len")
-IMPORT("true_str", "true_table", "is_fav", "is_num", "str_to_pos")
-IMPORT("maxn", "sort", "concat", "copy", "insert", "remove", "unpack")
-IMPORT(
-  "extract_groups",
-  "groups_to_items",
-  "is_group",
-  "item_has_groups",
-  "get_group"
-)
+local vec, vec_round = i3.get("vec", "vec_round")
+local find, match, sub, upper = i3.get("find", "match", "sub", "upper")
+local clr, ESC, msg, check_privs = i3.get("clr", "ESC", "msg", "check_privs")
+local min, max, floor, ceil, round =
+  i3.get("min", "max", "floor", "ceil", "round")
+local reg_items, reg_nodes, reg_tools, reg_entities =
+  i3.get("reg_items", "reg_nodes", "reg_tools", "reg_entities")
+local get_bag_description, get_detached_inv, get_recipes =
+  i3.get("get_bag_description", "get_detached_inv", "get_recipes")
+local compression_active, compressible, recipe_filter_set =
+  i3.get("compression_active", "compressible", "recipe_filter_set")
+local S, ES, translate, ItemStack, toupper, utf8_len =
+  i3.get("S", "ES", "translate", "ItemStack", "toupper", "utf8_len")
+local true_str, true_table, is_fav, is_num, str_to_pos =
+  i3.get("true_str", "true_table", "is_fav", "is_num", "str_to_pos")
+local maxn, sort, concat, copy, insert, remove, unpack =
+  i3.get("maxn", "sort", "concat", "copy", "insert", "remove", "unpack")
+local extract_groups, groups_to_items, is_group, item_has_groups, get_group =
+  i3.get(
+    "extract_groups",
+    "groups_to_items",
+    "is_group",
+    "item_has_groups",
+    "get_group"
+  )
 
 local function fmt(elem, ...)
   if not fs_elements[elem] then return sprintf(elem, ...) end
