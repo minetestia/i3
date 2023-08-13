@@ -33,6 +33,10 @@ local extract_groups, groups_to_items, is_group, item_has_groups, get_group =
     "get_group"
   )
 
+-- stylua: ignore
+---@diagnostic disable-next-line: undefined-global
+local button, image, animated_image, label, image_button, box, hypertext, armor, tooltip, skins, checkbox, model, slot, awards, item_image_button, item_image, scrollbar, bg9 = button, image, animated_image, label, image_button, box, hypertext, armor, tooltip, skins, checkbox, model, slot, awards, item_image_button,item_image, scrollbar, bg9
+
 local function fmt(elem, ...)
   if not fs_elements[elem] then return sprintf(elem, ...) end
 
@@ -1002,7 +1006,7 @@ local function get_inventory_fs(player, data, fs)
     image(0.7, 0.2, size, size * props.visual_size.y, props.textures[1])
   end
 
-  local awards_unlocked, award_list, award_list_nb = 0
+  local awards_unlocked, award_list, award_list_nb = 0, nil, nil
   local max_val = damage_enabled and 12 or 7
   max_val = max_val + (data.legacy_inventory and 2 or 0)
   local bag_size = get_group(ItemStack(data.bag):get_name(), "bag")
@@ -1180,7 +1184,7 @@ local function get_output_fs(
   local fuel = rcp.type == "fuel"
 
   if custom_recipe or shapeless or cooking then
-    local icon, tooltip = PNG.blank
+    local icon, tooltip = PNG.blank, nil
 
     if custom_recipe and true_str(custom_recipe.icon) then
       icon = custom_recipe.icon
@@ -1266,7 +1270,7 @@ end
 local function get_grid_fs(fs, data, rcp, is_recipe, is_usage)
   local width = rcp.width or 1
   local right = 0
-  local btn_size, _btn_size = i3.settings.item_btn_size
+  local btn_size, _btn_size = i3.settings.item_btn_size, nil
   local cooktime, shapeless
 
   if rcp.type == "cooking" then
@@ -1706,7 +1710,8 @@ local function get_rcp_extra(fs, data, player, panel, is_recipe, is_usage)
   if rn then
     local rcp_ok = is_recipe and panel.rcp[data.rnum].type == "normal"
     local usg_ok = is_usage and panel.rcp[data.unum].type == "normal"
-    local max_stacks_rcp, max_stacks_usg, missing_rcp, missing_usg = 0, 0
+    local max_stacks_rcp, max_stacks_usg, missing_rcp, missing_usg =
+      0, 0, nil, nil
     local inv = player:get_inventory()
 
     if rcp_ok then
@@ -2091,12 +2096,13 @@ local function get_panels(fs, data, player)
     bg9(data.inv_width + 0.1, data.yoffset, 7.9, panel.height, PNG.bg_full)
 
     local is_recipe, is_usage = panel.name == "recipes", panel.name == "usages"
+    ---@diagnostic disable-next-line: redundant-parameter
     panel.func(fs, data, player, panel, is_recipe, is_usage)
   end
 end
 
 local function get_tabs_fs(fs, player, data, full_height)
-  local tab_len, tab_hgh, c, over = 3, 0.5, 0
+  local tab_len, tab_hgh, c, over = 3, 0.5, 0, nil
   local _tabs = copy(i3.tabs)
 
   for i, def in ipairs(i3.tabs) do

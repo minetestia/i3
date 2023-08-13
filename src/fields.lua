@@ -66,6 +66,8 @@ local function inv_fields(player, data, fields)
       data.show_setting = match(field, "_(%w+)$")
     elseif sub(field, 1, 9) == "skin_btn_" then
       local id = tonumber(field:match "%d+")
+      ---@diagnostic disable-next-line: undefined-global
+      local skins = skins
       local _skins = skins.get_skinlist_for_player(name)
 
       play_sound(name, "i3_skin_change", 0.6)
@@ -414,6 +416,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 
   if formname == "i3_outdated" then
     return false,
+      ---@diagnostic disable-next-line: redundant-return-value
       minetest.kick_player(
         name,
         S "Your Minetest client needs updating (www.minetest.net)"

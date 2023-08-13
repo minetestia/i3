@@ -80,6 +80,9 @@ end)
 if minetest.global_exists "armor" then
   i3.modules.armor = true
 
+  ---@diagnostic disable-next-line: undefined-global
+  local armor = armor
+
   local group_indexes = {
     { "armor_head", "i3_heavy_helmet" },
     { "armor_torso", "i3_heavy_armor" },
@@ -177,11 +180,15 @@ end
 
 local function disable_inventories()
   if rawget(_G, "sfinv") then
+    ---@diagnostic disable-next-line: undefined-global
+    local sfinv = sfinv
+
     function sfinv.set_player_inventory_formspec() return end
     sfinv.enabled = false
   end
 
   if rawget(_G, "unified_inventory") then
+    ---@diagnostic disable-next-line: undefined-global
     function unified_inventory.set_inventory_formspec() return end
   end
 end

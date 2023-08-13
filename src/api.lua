@@ -270,7 +270,7 @@ i3.register_craft_type("digging_chance", {
 
 i3.add_search_filter("groups", function(item, groups)
   local def = reg_items[item]
-  local has_groups = true
+  local has_groups = true ---@type boolean|nil
 
   for _, group in ipairs(groups) do
     if not def.groups[group] then

@@ -9,6 +9,7 @@ local function init_hud(player)
   local wdesc_y = -90
 
   if minetest.global_exists "hb" then
+    ---@diagnostic disable-next-line: undefined-global
     wdesc_y = wdesc_y - ceil(hb.hudbars_count / 2) * 5
   elseif not i3.settings.damage_enabled then
     wdesc_y = wdesc_y + 15

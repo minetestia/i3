@@ -62,7 +62,7 @@ local function _load(path, line, data, t)
 
   local l, err = loadstring(data)
 
-  if not l then
+  if not l and err then
     local err_line = tonumber(err:match ":(%d+):")
 
     if t then print("err_line", err_line, t[err_line]) end

@@ -226,6 +226,7 @@ end
 local old_register_craft = minetest.register_craft
 local rcp_num = {}
 
+---@diagnostic disable-next-line: duplicate-set-field
 minetest.register_craft = function(def)
   old_register_craft(def)
 
@@ -261,6 +262,7 @@ end
 
 local old_clear_craft = minetest.clear_craft
 
+---@diagnostic disable-next-line: duplicate-set-field
 minetest.clear_craft = function(def)
   old_clear_craft(def)
 

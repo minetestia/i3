@@ -25,6 +25,7 @@ end
 
 local old_is_creative_enabled = minetest.is_creative_enabled
 
+---@diagnostic disable-next-line: duplicate-set-field
 function minetest.is_creative_enabled(name)
   if name == "" then return old_is_creative_enabled(name) end
 
@@ -67,6 +68,8 @@ local function round(num, decimal)
   return floor(num * mul + 0.5) / mul
 end
 
+---@param str string
+---@return string, integer
 local function toupper(str) return str:gsub("%f[%w]%l", upper):gsub("_", " ") end
 
 local function utf8_len(str)
@@ -113,7 +116,7 @@ local function search(data)
     local def = reg_items[item]
     local desc = lower(translate(data.lang_code, def.description)) or ""
     local search_in = fmt("%s %s", item, desc)
-    local temp, j, to_add = {}, 1
+    local temp, j, to_add = {}, 1, nil
 
     if search_filter then
       for filter_name, values in pairs(filters) do
@@ -129,7 +132,7 @@ local function search(data)
         end
       end
     else
-      local ok = true
+      local ok = true ---@type boolean|nil
 
       for keyword in gmatch(filter, "%S+") do
         if not find(search_in, keyword, 1, true) then
@@ -285,12 +288,15 @@ local function get_cube(tiles)
   if not true_table(tiles) then return "i3_blank.png" end
 
   local top = tiles[1] or "i3_blank.png"
+  ---@diagnostic disable-next-line: undefined-field
   if is_table(top) then top = top.name or top.image end
 
   local left = tiles[3] or top or "i3_blank.png"
+  ---@diagnostic disable-next-line: undefined-field
   if is_table(left) then left = left.name or left.image end
 
   local right = tiles[5] or left or "i3_blank.png"
+  ---@diagnostic disable-next-line: undefined-field
   if is_table(right) then right = right.name or right.image end
 
   return minetest.inventorycube(top, left, right)
@@ -665,6 +671,7 @@ local function createunpack(n)
 
   for k = 2, n do
     ret[2 + (k - 2) * 4] = "t["
+    ---@diagnostic disable-next-line: assign-type-mismatch
     ret[3 + (k - 2) * 4] = k - 1
     ret[4 + (k - 2) * 4] = "]"
 
