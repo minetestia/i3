@@ -1,3 +1,6 @@
+# THIS REPO IS OUTDATED
+Moved here: <https://notabug.org/minetestia/i3>
+
 ![logo](https://user-images.githubusercontent.com/7883281/145490041-d91d6bd6-a654-438d-b208-4d5736845ab7.png)
 
 [![GitHub Release](https://img.shields.io/github/release/minetest-mods/i3.svg?style=flat)]() ![workflow](https://github.com/minetest-mods/i3/actions/workflows/luacheck.yml/badge.svg) [![ContentDB](https://content.minetest.net/packages/jp/i3/shields/downloads/)](https://content.minetest.net/packages/jp/i3/) [![PayPal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.me/jpg84240)
